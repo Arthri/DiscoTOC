@@ -31,19 +31,19 @@
     return cleanItem;
   };
 
-  let usedAnchors = {};
-  const obtainUniqueAnchor = anchor => {
-    if (usedAnchors[anchor] === undefined) {
-      usedAnchors[anchor] = 1;
-      return anchor;
+  let usedIDs = {};
+  const obtainUniqueID = id => {
+    if (usedIDs[id] === undefined) {
+      usedIDs[id] = 1;
+      return id;
     } else {
-      return `${anchor}-${++usedAnchors[anchor]}`;
+      return `${id}-${++usedIDs[id]}`;
     }
   };
 
   const createAnchors = id => {
     const link = $("<a/>", {
-      href: `#${obtainUniqueAnchor(id)}`,
+      href: `#${id}`,
       class: "d-toc-anchor-link",
       html: linkIcon
     });
@@ -303,7 +303,7 @@
         let id = heading.attr("id") || "";
 
         if (!id.length) {
-          id = cleanUp(heading.text());
+          id = obtainUniqueID(cleanUp(heading.text()));
         }
 
         heading
