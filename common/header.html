@@ -31,9 +31,19 @@
     return cleanItem;
   };
 
+  let usedAnchors = {};
+  const obtainUniqueAnchor = anchor => {
+    if (usedAnchors[anchor] === undefined) {
+      usedAnchors[anchor] = 1;
+      return anchor;
+    } else {
+      return `${anchor}-${++usedAnchors[anchor]}`;
+    }
+  };
+
   const createAnchors = id => {
     const link = $("<a/>", {
-      href: `#${id}`,
+      href: `#${obtainUniqueAnchor(id)}`,
       class: "d-toc-anchor-link",
       html: linkIcon
     });
